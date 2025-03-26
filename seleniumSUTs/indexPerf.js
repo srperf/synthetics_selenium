@@ -150,27 +150,43 @@ const popupPage = `
 </html>
 `;
 
+function randomDelay(min, max, callback) {
+    let delay = Math.floor(Math.random() * (max - min + 1)) + min;
+    setTimeout(callback, delay);
+}
+
+const MIN_DELAY = 500;   // Minimum delay in ms
+const MAX_DELAY = 3000;  // Maximum delay in ms
+
 const server = http.createServer((req, res) => {
     const parsedUrl = url.parse(req.url, true);
 
-    if (req.url === "/") {
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end(homePage);
-    } else if (parsedUrl.pathname === "/result") {
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end(resultPage(parsedUrl.query.input || "Nothing entered"));
-    } else if (req.url === "/about") {
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end(aboutPage);
-    } else if (req.url === "/popup") {
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end(popupPage);
-    } else {
-        res.writeHead(404, { "Content-Type": "text/html" });
-        res.end("<h1>404 Not Found</h1>");
+    function respondWith(content) {
+        randomDelay(MIN_DELAY, MAX_DELAY, () => {
+            res.writeHead(200, { "Content-Type": "text/html" });
+            res.end(content);
+        });
     }
+    randomDelay(MIN_DELAY, MAX_DELAY, () => {
+        if (req.url === "/") {
+            res.writeHead(200, { "Content-Type": "text/html" });
+            res.end(homePage);
+        } else if (parsedUrl.pathname === "/result") {
+            res.writeHead(200, { "Content-Type": "text/html" });
+            res.end(resultPage(parsedUrl.query.input || "Nothing entered"));
+        } else if (req.url === "/about") {
+            res.writeHead(200, { "Content-Type": "text/html" });
+            res.end(aboutPage);
+        } else if (req.url === "/popup") {
+            res.writeHead(200, { "Content-Type": "text/html" });
+            res.end(popupPage);
+        } else {
+            res.writeHead(404, { "Content-Type": "text/html" });
+            res.end("<h1>404 Not Found</h1>");
+        }
+    });
 });
 
-server.listen(3000, () => {
-    console.log("Server running at http://localhost:3000");
+server.listen(4000, () => {
+    console.log("Server running at http://localhost:4000");
 });
