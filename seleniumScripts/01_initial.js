@@ -144,7 +144,7 @@ function pause(ms) {
             console.error("About Page Test Failed:", error.message);
         }
 
-        console.log("✅✅✅✅ All tests completed!");
+        console.log("✅✅✅✅ All tests Executed!");
     } catch (error) {
         console.error("Test failed:", error.message);
     } finally {
