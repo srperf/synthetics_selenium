@@ -1,0 +1,16 @@
+# Ignore node_modules (contains selenium-webdriver and other dependencies)
+node_modules/
+
+# Ignore lock files (optional, but useful for avoiding conflicts)
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Ignore npm debug logs
+npm-debug.log*
+
+# Ignore environment variables or other sensitive files (if applicable)
+.env
+
+# macOS system files
+.DS_Store
